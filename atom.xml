@@ -4,7 +4,7 @@
   <title><![CDATA[Icemelon]]></title>
   <link href="http://ice-melon.github.io/atom.xml" rel="self"/>
   <link href="http://ice-melon.github.io/"/>
-  <updated>2013-07-26T14:36:42+08:00</updated>
+  <updated>2013-07-26T15:44:27+08:00</updated>
   <id>http://ice-melon.github.io/</id>
   <author>
     <name><![CDATA[icemelon]]></name>
@@ -12,6 +12,16 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[“妞妞小胖子啦拉拉”]]></title>
+    <link href="http://ice-melon.github.io/blog/2013/07/26/niu-niu-xiao-pang-zi-la-la-la/"/>
+    <updated>2013-07-26T15:43:00+08:00</updated>
+    <id>http://ice-melon.github.io/blog/2013/07/26/niu-niu-xiao-pang-zi-la-la-la</id>
+    <content type="html"><![CDATA[<p>我是在测试写博客
+真是折腾 不过结果还不错！</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[test1]]></title>
