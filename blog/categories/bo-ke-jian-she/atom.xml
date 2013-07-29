@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Icemelon]]></title>
-  <link href="http://ice-melon.github.io/atom.xml" rel="self"/>
+  <title><![CDATA[Category: 博客建设 | Icemelon]]></title>
+  <link href="http://ice-melon.github.io/blog/categories/bo-ke-jian-she/atom.xml" rel="self"/>
   <link href="http://ice-melon.github.io/"/>
   <updated>2013-07-29T23:38:55+08:00</updated>
   <id>http://ice-melon.github.io/</id>
