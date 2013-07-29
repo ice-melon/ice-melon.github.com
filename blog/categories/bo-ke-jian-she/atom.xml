@@ -4,7 +4,7 @@
   <title><![CDATA[Category: 博客建设 | Icemelon]]></title>
   <link href="http://ice-melon.github.io/blog/categories/bo-ke-jian-she/atom.xml" rel="self"/>
   <link href="http://ice-melon.github.io/"/>
-  <updated>2013-07-29T23:51:28+08:00</updated>
+  <updated>2013-07-29T23:57:16+08:00</updated>
   <id>http://ice-melon.github.io/</id>
   <author>
     <name><![CDATA[icemelon]]></name>
@@ -24,8 +24,7 @@
 
 <p>对于学习markdown语法推荐<a href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet">markdown cheatsheet</a>,讲的非常清楚。但对table的解析有点问题，直接嵌入HTML的table代码倒没有任何问题。也不建议在排版中使用Horizontal Rule，因为octopress已经利用了这来分割不同文章，如果再在排版中使用会使blog整个排版非常散乱。</p>
 
-<p>要上图的话建议上传到其他网站再用链接读图。不建议直接放到images文件夹里，因为github免费空间是有限的。国内把flickr和instagram都墙了，尤其是flickr网站能上图片无法载入，非常奇葩。
-<img src="http://www.baidupcs.com/thumbnail/3aa827e6f678e90e4a4a348d8c2df886?fid=4113604652-250528-2801451992&amp;time=1375112994&amp;sign=FDTAR-DCb740ccc5511e5e8fedcff06b081203-UM0hN9LGQrf9itAS64K%2BtbM54NY%3D&amp;rt=sh&amp;expires=8h&amp;size=c850_u580&amp;quality=100" title="Logo Title Text 1" alt="alt text" /></p>
+<p>要上图的话建议上传到其他网站再用链接读图。不建议直接放到images文件夹里，因为github免费空间是有限的。国内把flickr和instagram都墙了，尤其是flickr网站能上图片无法载入，非常奇葩。</p>
 ]]></content>
   </entry>
   
