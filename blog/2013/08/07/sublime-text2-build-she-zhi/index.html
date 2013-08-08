@@ -90,12 +90,11 @@
 
 <p>Mac平台下sublime没有预设C的build配置，虽然直接用C++（据说国内某大型清新约炮网站有一程序萌妹子，人称C++）编译也行，但总归不舒服。stackoverflow等社区也没现成的方法，遂查了下sublime的<a href="http://docs.sublimetext.info/en/latest/reference/build_systems.html">build配置方法</a>,是熟悉的JSON结构。</p>
 
-<p>下面是mac下面编译与运行一起执行的配置方法，并且能使编译时的错误和运行的结果一起打印到sublime里。</p>
+<p>下面是mac下面编译与运行一起执行的配置方法，并且能使编译时的错误一起到sublime里。</p>
 
 <pre>
 {
     "cmd" : ["gcc",  "-o", "$file_base_name", "$file_name"],
-    "cmd" : ["./$file_base_name"],
     "selector" : "source.c",
     "shell" : false,
     "working_dir" : "$file_path"
@@ -103,12 +102,12 @@
 </pre>
 
 
-<p>cmd就是执行的命令，而且可以打多个命令。一开始以为只能有一个cmd，网上没有查到用两个cmd命令的例子，尝试用</p>
+<p>cmd就是执行的命令。尝试用</p>
 
 <pre><code>gcc -o test test.c &amp;&amp; ./test
 </code></pre>
 
-<p>来运行，发现sublime无法对&amp;&amp;进行解析。之后尝试分开运行成功了。
+<p>来编译和运行，发现sublime无法对&amp;&amp;进行解析。之后尝试使用两个cmd指令，发现只有第二个cmd是有效的。所以光配置sublime是无法达到一个build同时完成编译和运行的任务。要达成这个目的得翻阅zsh的文档自己写个能传参的命令，并且能输出gcc编译的结果和代码运行结果。
 selector属性是选择自动build时候，当文件后缀是.c的时候自动选择这个build文件。</p>
 
 <p>顺便记下windows平台下配置方法,还没测试过。</p>
@@ -142,7 +141,7 @@ selector属性是选择自动build时候，当文件后缀是.c的时候自动�
 	<div class="tags">
 
 
-	<a class='category' href='/blog/categories/bian-ji-qi/'>编辑器</a>
+	<a class='category' href='/blog/categories/c/'>c</a>, <a class='category' href='/blog/categories/mac/'>mac</a>, <a class='category' href='/blog/categories/sublime/'>sublime</a>
 
 
 </div>

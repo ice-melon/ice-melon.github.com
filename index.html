@@ -7,7 +7,7 @@
 	<meta name="author" content="icemelon">
 
 	
-	<meta name="description" content="sublime text2 是一款优秀的编辑器，在mac，linux，window平台上都能用。sublime平台拥有很多优秀的插件，而且安装非常方便。 command + shift+ p 能够召唤出强大无比的命令行，让你摆脱鼠标，摆脱一大波需要记的快捷键。官方网站上有视频教程， &hellip;">
+	<meta name="description" content="Several days ago, I waked up at 6 am and happened to watch a TED talk &ldquo;How great leaders inspire action&rdquo;. I was attracted by the speaker &hellip;">
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -85,6 +85,67 @@
     <article class="post">
 	<h2 class="title">
 		
+		<a href="/blog/2013/08/08/people-dont-buy-what-u-do-they-buy-why-u-do/">
+		
+			People Don’t Buy What U Do,they Buy Why U Do</a>
+	</h2>
+	<div class="entry-content">
+		<p>Several days ago, I waked up at 6 am and happened to watch a TED talk <a href="http://blog.ted.com/2010/05/04/how_great_leade/">&ldquo;How great leaders inspire action&rdquo;</a>. I was attracted by the speaker&rsquo;s terse idea and comfortable articulate  pronunciation.</p>
+
+<p>The speaker,<a href="http://www.twitter.com/simonsinek">Simon Sinek</a>, is a brilliant marketing consultant and author of <a href="http://www.amazon.com/Start-Why-Leaders-Inspire-Everyone/dp/1591842808?tag=jasonwiener-20">Start of Why</a>. He believes  that all great organizations think, act, and communicate in the exact same way — and this is opposite of how most of us think, act, and communicate. He believes great companies and leaders communicate and inspire with a methodology he calls The Golden Circle.</p>
+
+<p>Here is the example of Golden Circle.</p>
+
+<blockquote><p>  If Apple were like everyone else their marketing message would be, “We make great computers. They are beautifully designed, simple to use, and user-friendly. Want to buy one?”</p>
+
+<p>  However, this is how Apple actually communicates, “In everything we do we believe in challenging the status quo. We believe in thinking differently. The way we challenge the status quo is by making our products beautifully designed, simple to use, and user-friendly. We just happen to make great computers. Want to buy one?”</p></blockquote>
+
+<p><img src="http://t1.baidu.com/it/u=1276415570,1783171753&amp;fm=21&amp;gp=0.jpg" title="Logo 1" alt="" /></p>
+
+<p>Every person  knows <em>what</em> they do and some people know <em>how</em> to do it better, which may be service and skill. But only very few know <em>why</em> they do what they do. As the golden circle diagram showed, all great organizations
+and people think inside out the diagram.</p>
+
+<p>The goal is not to do business with people need what you have. The goal is to do business with people believe with what you believe. The first 2.5% of population are innovators; The next 13.5% people are early adopters.
+The propagation law tells us if you want mass-market success or mass-market acceptance of  an idea, you can&rsquo;t have it until you achieve the tipping poin between 15% and 18%. Most of population just follow what others do.</p>
+
+<p>When first generation of iphone came out, why so many people wait many hours to buy a iphone? Because these people believe what Apple believes. The innovators and early adoptors feel comfortable to make intuitive decisions that are driven by what their believe about the world and not just what product is available.</p>
+
+<p>Recommend to watch the <a href="http://www.ted.com/talks/simon_sinek_how_great_leaders_inspire_action.html">talk</a>.</p>
+
+		
+		
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-08-08T23:03:00+08:00" pubdate data-updated="true">Aug 8<span>th</span>, 2013</time></div>
+	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/no-business-of-tech/'>no_business_of_tech</a>
+
+
+</div>
+	
+</div>
+</article>
+
+
+    <article class="post">
+	<h2 class="title">
+		
 		<a href="/blog/2013/08/07/sublime-text2-build-she-zhi/">
 		
 			Sublime Text2 Build 设置</a>
@@ -99,12 +160,11 @@
 
 <p>Mac平台下sublime没有预设C的build配置，虽然直接用C++（据说国内某大型清新约炮网站有一程序萌妹子，人称C++）编译也行，但总归不舒服。stackoverflow等社区也没现成的方法，遂查了下sublime的<a href="http://docs.sublimetext.info/en/latest/reference/build_systems.html">build配置方法</a>,是熟悉的JSON结构。</p>
 
-<p>下面是mac下面编译与运行一起执行的配置方法，并且能使编译时的错误和运行的结果一起打印到sublime里。</p>
+<p>下面是mac下面编译与运行一起执行的配置方法，并且能使编译时的错误一起到sublime里。</p>
 
 <pre>
 {
     "cmd" : ["gcc",  "-o", "$file_base_name", "$file_name"],
-    "cmd" : ["./$file_base_name"],
     "selector" : "source.c",
     "shell" : false,
     "working_dir" : "$file_path"
@@ -112,12 +172,12 @@
 </pre>
 
 
-<p>cmd就是执行的命令，而且可以打多个命令。一开始以为只能有一个cmd，网上没有查到用两个cmd命令的例子，尝试用</p>
+<p>cmd就是执行的命令。尝试用</p>
 
 <pre><code>gcc -o test test.c &amp;&amp; ./test
 </code></pre>
 
-<p>来运行，发现sublime无法对&amp;&amp;进行解析。之后尝试分开运行成功了。
+<p>来编译和运行，发现sublime无法对&amp;&amp;进行解析。之后尝试使用两个cmd指令，发现只有第二个cmd是有效的。所以光配置sublime是无法达到一个build同时完成编译和运行的任务。要达成这个目的得翻阅zsh的文档自己写个能传参的命令，并且能输出gcc编译的结果和代码运行结果。
 selector属性是选择自动build时候，当文件后缀是.c的时候自动选择这个build文件。</p>
 
 <p>顺便记下windows平台下配置方法,还没测试过。</p>
@@ -154,7 +214,7 @@ selector属性是选择自动build时候，当文件后缀是.c的时候自动�
 	<div class="tags">
 
 
-	<a class='category' href='/blog/categories/bian-ji-qi/'>编辑器</a>
+	<a class='category' href='/blog/categories/c/'>c</a>, <a class='category' href='/blog/categories/mac/'>mac</a>, <a class='category' href='/blog/categories/sublime/'>sublime</a>
 
 
 </div>
@@ -201,7 +261,7 @@ selector属性是选择自动build时候，当文件后缀是.c的时候自动�
 	<div class="tags">
 
 
-	<a class='category' href='/blog/categories/bo-ke-jian-she/'>博客建设</a>
+	<a class='category' href='/blog/categories/octopress/'>octopress</a>
 
 
 </div>

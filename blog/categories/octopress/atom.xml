@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: 博客建设 | Icemelon]]></title>
-  <link href="http://ice-melon.github.io/blog/categories/bo-ke-jian-she/atom.xml" rel="self"/>
+  <title><![CDATA[Category: octopress | Icemelon]]></title>
+  <link href="http://ice-melon.github.io/blog/categories/octopress/atom.xml" rel="self"/>
   <link href="http://ice-melon.github.io/"/>
-  <updated>2013-08-07T21:59:44+08:00</updated>
+  <updated>2013-08-09T00:52:16+08:00</updated>
   <id>http://ice-melon.github.io/</id>
   <author>
     <name><![CDATA[icemelon]]></name>
