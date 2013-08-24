@@ -7,7 +7,7 @@
 	<meta name="author" content="icemelon">
 
 	
-	<meta name="description" content="Several days ago, I waked up at 6 am and happened to watch a TED talk &ldquo;How great leaders inspire action&rdquo;. I was attracted by the speaker &hellip;">
+	<meta name="description" content="Suppose you have an array of n elemnets and you have to pick an element randomly. It is easy that you just pick each element with probability 1/n. &hellip;">
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -80,6 +80,68 @@
 		
 	
 	<div id="content" class="inner">
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2013/08/24/pick-a-random-element-from-a-long-array/">
+		
+			Pick a Random Element From a Long Array</a>
+	</h2>
+	<div class="entry-content">
+		<p>Suppose you have an array of n elemnets and you have to pick an element randomly. It is easy that you just pick each element with probability 1/n.</p>
+
+<p>While if you don&rsquo;t know the size of the array, you receive the element one at a time. How to pick the element? In theory you could wait for all elements to come and compute the probility. But the stream may be too large to be stored in memory, which makes it infeasible. We want an algorithm that we do not have to store the elements and look at the elements twice.</p>
+
+<p>Here comes the solution:</p>
+
+<pre><code>1.Choose the first element with probability 1
+2.Replace the first element with the second element, with probability 1/2
+3.Replace the current element with the third element, with probability 1/3
+4.Continue doing this until the stream ends.
+</code></pre>
+
+<p>Let&rsquo;s prove the correctness by induction:</p>
+
+<pre><code>Suppose that after seeing n-1 elements, each of the first n-1 elements is chosen with equal probability.  
+When you see the nth element, it is chosen with probability 1/n, and each of the other elements is chosen
+with probability [1/(n-1)] * [(n-1) / n] = 1/n. 
+Therefore all elements are chosen with equal probability.
+</code></pre>
+
+<p>The algorithm takes O(1) space and O(n) time, which is quite simple and beautiful.
+For more information, see <a href="http://en.wikipedia.org/wiki/Reservoir_sampling">Reservior sample</a> on Wikipedia.</p>
+
+		
+		
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-08-24T22:53:00+08:00" pubdate data-updated="true">Aug 24<span>th</span>, 2013</time></div>
+	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/english/'>English</a>, <a class='category' href='/blog/categories/algorithm/'>algorithm</a>
+
+
+</div>
+	
+</div>
+</article>
 
 
     <article class="post">
@@ -214,7 +276,7 @@ selector属性是选择自动build时候，当文件后缀是.c的时候自动�
 	<div class="tags">
 
 
-	<a class='category' href='/blog/categories/c/'>c</a>, <a class='category' href='/blog/categories/mac/'>mac</a>, <a class='category' href='/blog/categories/sublime/'>sublime</a>
+	<a class='category' href='/blog/categories/c/'>c</a>, <a class='category' href='/blog/categories/mac/'>mac</a>, <a class='category' href='/blog/categories/sublime/'>sublime</a>, <a class='category' href='/blog/categories/zhong-wen/'>中文</a>
 
 
 </div>
