@@ -4,7 +4,7 @@
   <title><![CDATA[Category: oop | Icemelon]]></title>
   <link href="http://ice-melon.github.io/blog/categories/oop/atom.xml" rel="self"/>
   <link href="http://ice-melon.github.io/"/>
-  <updated>2013-08-28T00:37:38+08:00</updated>
+  <updated>2013-08-28T00:40:10+08:00</updated>
   <id>http://ice-melon.github.io/</id>
   <author>
     <name><![CDATA[icemelon]]></name>
@@ -39,12 +39,20 @@
 <p>比如在 view：FaceView和control：FaceViewControl中，我们要在view中取得一个存在control中的数据。我们不能直接从control中拿，而是要定义一个delegate方法。
 在FaceView的头文件中我们可以这么定义</p>
 
-<p><pre>
-@class FaceView;</p>
+<pre>
+@class FaceView;
 
-<p>@protocol FaceViewDataSource
-&ndash; (float)smileForFaceView:(FaceView *)sender;
-将FaceView自己作为参数，返回一个float的返回值。而且在@inferface里面定义了一个类型为id的叫dataSource的@property，dataSource还实现了FaceViewDataSource这个protocol。所以dataSource实际上就是control，control中实现了smileForFaceView这个方法。我们就可以再FaveView.m里面通过</p>
+@protocol FaceViewDataSource
+- (float)smileForFaceView:(FaceView *)sender;
+@end
+
+@interface FaceView : UIView
+@property (nonatomic, weak) IBOutlet id <FaceViewDataSource> dataSource;
+@end
+</pre>
+
+
+<p>将FaceView自己作为参数，返回一个float的返回值。而且在@inferface里面定义了一个类型为id的叫dataSource的@property，dataSource还实现了FaceViewDataSource这个protocol。所以dataSource实际上就是control，control中实现了smileForFaceView这个方法。我们就可以再FaveView.m里面通过</p>
 
 <pre><code>float haha =[self.dataSource smileForFaceView:self]；
 </code></pre>
