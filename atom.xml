@@ -4,7 +4,7 @@
   <title><![CDATA[Icemelon]]></title>
   <link href="http://ice-melon.github.io/atom.xml" rel="self"/>
   <link href="http://ice-melon.github.io/"/>
-  <updated>2013-08-27T22:32:21+08:00</updated>
+  <updated>2013-08-28T00:37:38+08:00</updated>
   <id>http://ice-melon.github.io/</id>
   <author>
     <name><![CDATA[icemelon]]></name>
@@ -39,25 +39,19 @@
 <p>比如在 view：FaceView和control：FaceViewControl中，我们要在view中取得一个存在control中的数据。我们不能直接从control中拿，而是要定义一个delegate方法。
 在FaceView的头文件中我们可以这么定义</p>
 
-<pre>
-    @class FaceView;
+<p><pre>
+@class FaceView;</p>
 
-    @protocol FaceViewDataSource
-    - (float)smileForFaceView:(FaceView *)sender;
-    @end
-
-    @interface FaceView : UIView
-    @property (nonatomic, weak) IBOutlet id <FaceViewDataSource> dataSource;
-    @end
-</pre>
-
-
-<p>可以看到@protocol中我们定义了个instance method，将FaceView自己作为参数，返回一个float的返回值。而且在@inferface里面定义了一个类型为id的叫dataSource的@property，dataSource还实现了FaceViewDataSource这个protocol。所以dataSource实际上就是control，control中实现了smileForFaceView这个方法。我们就可以再FaveView.m里面通过</p>
+<p>@protocol FaceViewDataSource
+&ndash; (float)smileForFaceView:(FaceView *)sender;
+将FaceView自己作为参数，返回一个float的返回值。而且在@inferface里面定义了一个类型为id的叫dataSource的@property，dataSource还实现了FaceViewDataSource这个protocol。所以dataSource实际上就是control，control中实现了smileForFaceView这个方法。我们就可以再FaveView.m里面通过</p>
 
 <pre><code>float haha =[self.dataSource smileForFaceView:self]；
 </code></pre>
 
 <p>这样的方式来获取control中的信息。</p>
+
+<p>那@class有什么意义呢？在smileForFaceView方法中的参数(FaceView *)sender是一个指向FaceView对象的指针。但是FaceView是未定义的对象名，由于objective-c是c的拓展，c中用到的所有自定义类型都得在之前定义过，所以得用@class先向compiler声明程序会在后面实现FaceView这个对象。</p>
 ]]></content>
   </entry>
   
