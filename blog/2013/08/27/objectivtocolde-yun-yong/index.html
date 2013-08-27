@@ -3,11 +3,11 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>如何快速学习markdown写博客 - Icemelon</title>
+	<title>objective-c中protocol的运用 - Icemelon</title>
 	<meta name="author" content="icemelon">
 
 	
-	<meta name="description" content="花了一个小时用octopress搭建了blog,托管在github之上。网上有很多在github上的搭建blog的教程，好处是不用自己租服务器,速度也能得到保证。octopress还有很多主题，使用起来非常方便，几句命令就能搞定。octopress对屏幕大小适应性非常强，我尝试不断调整页面大小， &hellip;">
+	<meta name="description" content="不废话放大招，protocol一句话攻略： 等于JAVA中的interface Mac Developer Library 上的精炼解释： A class interface declares the methods and properties associated with that &hellip;">
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -80,14 +80,47 @@
 		
 	
 	<div id="content" class="inner"><article class="post">
-	<h2 class="title">如何快速学习markdown写博客</h2>
-	<div class="entry-content"><p>花了一个小时用octopress搭建了blog,托管在github之上。网上有很多在github上的搭建blog的教程，好处是不用自己租服务器,速度也能得到保证。octopress还有很多<a href="http://opthemes.com/">主题</a>，使用起来非常方便，几句命令就能搞定。octopress对屏幕大小适应性非常强，我尝试不断调整页面大小，blog的排版一直很优秀，一些UI的小细节做的很出色。</p>
+	<h2 class="title">Objective-c中protocol的运用</h2>
+	<div class="entry-content"><p>不废话放大招，protocol一句话攻略：</p>
 
-<p>首先推荐一个在线的markdown网站<a href="http://dillinger.io/">dillinger.io</a>,能够实时根据markdown生成排版后的样式，非常方便。而且网站还能对编写的内容进行保存，就算浏览器crash后再打开所写的东西也不会丢失，非常人性化。网站还能和github、dropbox连接，直接保存到github和dropbox上，很方便。sublime编辑器上也能装markdown插件来方便操作，比如<a href="http://ttscoff.github.io/MarkdownEditing/">markdownediting</a>。</p>
+<pre><code>等于JAVA中的interface
+</code></pre>
 
-<p>对于学习markdown语法推荐<a href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet">markdown cheatsheet</a>,简洁清楚的英文教程。<a href="http://wowubuntu.com/markdown/">markdown语法说明</a>是个中文的教程，更加详细。使用markdown语法时对table的解析有点问题，直接嵌入HTML的table代码倒没有任何问题。也不建议在排版中使用Horizontal Rule，因为octopress已经利用了这来分割不同文章，如果再在排版中使用会使blog整个排版非常散乱。</p>
+<p><a href="https://developer.apple.com/library/mac/documentation/cocoa/conceptual/ProgrammingWithObjectiveC/WorkingwithProtocols/WorkingwithProtocols.html">Mac Developer Library</a> 上的精炼解释：</p>
 
-<p>要上图的话建议上传到其他网站再用链接读图。不建议直接放到images文件夹里，因为github免费空间是有限的。国内把flickr和instagram都墙了，尤其是flickr网站能上图片无法载入，非常奇葩。</p>
+<pre>
+    A class interface declares the methods and properties associated with that class. 
+    A protocol, by contrast, is used to declare methods and properties that are independent of any specific class.
+</pre>
+
+
+<p>像C++和Ruby都实现了多重继承，既一个class能拥有多个superclass；而objective-c和java等语言中的class只能严格拥有一个superclass类。在objective-c中我们用<code>@protocal</code>来实现多重继承的能力。
+语法直接看<a href="https://developer.apple.com/library/mac/documentation/cocoa/conceptual/ProgrammingWithObjectiveC/WorkingwithProtocols/WorkingwithProtocols.html">Mac Developer Library 上的定义</a>，人家苹果写文档都通过一个律师事务所的例子把为什么要在面向对象语言中实现protocol原因给你讲清楚了，是敬业啊！</p>
+
+<p>我这里讲一下运用protocol实现MVC中的delegate方法，因为view和control是不能直接通信的，要使用delegate。mvc以后有空写写，google关于mvc的图片，大部分都是有错误的，很多图居然在view和model间直接加了箭头。view和model怎么能通信呢，起码要通过control才行啊。</p>
+
+<p>比如在 view：FaceView和control：FaceViewControl中，我们要在view中取得一个存在control中的数据。我们不能直接从control中拿，而是要定义一个delegate方法。
+在FaceView的头文件中我们可以这么定义</p>
+
+<pre>
+    @class FaceView;
+
+    @protocol FaceViewDataSource
+    - (float)smileForFaceView:(FaceView *)sender;
+    @end
+
+    @interface FaceView : UIView
+    @property (nonatomic, weak) IBOutlet id <FaceViewDataSource> dataSource;
+    @end
+</pre>
+
+
+<p>可以看到@protocol中我们定义了个instance method，将FaceView自己作为参数，返回一个float的返回值。而且在@inferface里面定义了一个类型为id的叫dataSource的@property，dataSource还实现了FaceViewDataSource这个protocol。所以dataSource实际上就是control，control中实现了smileForFaceView这个方法。我们就可以再FaveView.m里面通过</p>
+
+<pre><code>float haha =[self.dataSource smileForFaceView:self]；
+</code></pre>
+
+<p>这样的方式来获取control中的信息。</p>
 </div>
 
 
@@ -104,11 +137,11 @@
   
 
 
-<time datetime="2013-07-29T23:07:00+08:00" pubdate data-updated="true">Jul 29<span>th</span>, 2013</time></div>
+<time datetime="2013-08-27T21:30:00+08:00" pubdate data-updated="true">Aug 27<span>th</span>, 2013</time></div>
 	<div class="tags">
 
 
-	<a class='category' href='/blog/categories/zhong-wen/'>中文</a>, <a class='category' href='/blog/categories/bo-ke-jian-she/'>博客建设</a>
+	<a class='category' href='/blog/categories/ios/'>ios</a>, <a class='category' href='/blog/categories/mvc/'>mvc</a>, <a class='category' href='/blog/categories/oop/'>oop</a>
 
 
 </div>
@@ -155,8 +188,8 @@
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://ice-melon.github.io/blog/2013/07/29/test/';
-        var disqus_url = 'http://ice-melon.github.io/blog/2013/07/29/test/';
+        var disqus_identifier = 'http://ice-melon.github.io/blog/2013/08/27/objectivtocolde-yun-yong/';
+        var disqus_url = 'http://ice-melon.github.io/blog/2013/08/27/objectivtocolde-yun-yong/';
         var disqus_script = 'embed.js';
       
     (function () {

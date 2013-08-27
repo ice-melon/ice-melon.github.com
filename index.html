@@ -7,7 +7,7 @@
 	<meta name="author" content="icemelon">
 
 	
-	<meta name="description" content="Suppose you have an array of n elemnets and you have to pick an element randomly. It is easy that you just pick each element with probability 1/n. &hellip;">
+	<meta name="description" content="不废话放大招，protocol一句话攻略： 等于JAVA中的interface Mac Developer Library 上的精炼解释： A class interface declares the methods and properties associated with that &hellip;">
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -80,6 +80,86 @@
 		
 	
 	<div id="content" class="inner">
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2013/08/27/objectivtocolde-yun-yong/">
+		
+			Objective-c中protocol的运用</a>
+	</h2>
+	<div class="entry-content">
+		<p>不废话放大招，protocol一句话攻略：</p>
+
+<pre><code>等于JAVA中的interface
+</code></pre>
+
+<p><a href="https://developer.apple.com/library/mac/documentation/cocoa/conceptual/ProgrammingWithObjectiveC/WorkingwithProtocols/WorkingwithProtocols.html">Mac Developer Library</a> 上的精炼解释：</p>
+
+<pre>
+    A class interface declares the methods and properties associated with that class. 
+    A protocol, by contrast, is used to declare methods and properties that are independent of any specific class.
+</pre>
+
+
+<p>像C++和Ruby都实现了多重继承，既一个class能拥有多个superclass；而objective-c和java等语言中的class只能严格拥有一个superclass类。在objective-c中我们用<code>@protocal</code>来实现多重继承的能力。
+语法直接看<a href="https://developer.apple.com/library/mac/documentation/cocoa/conceptual/ProgrammingWithObjectiveC/WorkingwithProtocols/WorkingwithProtocols.html">Mac Developer Library 上的定义</a>，人家苹果写文档都通过一个律师事务所的例子把为什么要在面向对象语言中实现protocol原因给你讲清楚了，是敬业啊！</p>
+
+<p>我这里讲一下运用protocol实现MVC中的delegate方法，因为view和control是不能直接通信的，要使用delegate。mvc以后有空写写，google关于mvc的图片，大部分都是有错误的，很多图居然在view和model间直接加了箭头。view和model怎么能通信呢，起码要通过control才行啊。</p>
+
+<p>比如在 view：FaceView和control：FaceViewControl中，我们要在view中取得一个存在control中的数据。我们不能直接从control中拿，而是要定义一个delegate方法。
+在FaceView的头文件中我们可以这么定义</p>
+
+<pre>
+    @class FaceView;
+
+    @protocol FaceViewDataSource
+    - (float)smileForFaceView:(FaceView *)sender;
+    @end
+
+    @interface FaceView : UIView
+    @property (nonatomic, weak) IBOutlet id <FaceViewDataSource> dataSource;
+    @end
+</pre>
+
+
+<p>可以看到@protocol中我们定义了个instance method，将FaceView自己作为参数，返回一个float的返回值。而且在@inferface里面定义了一个类型为id的叫dataSource的@property，dataSource还实现了FaceViewDataSource这个protocol。所以dataSource实际上就是control，control中实现了smileForFaceView这个方法。我们就可以再FaveView.m里面通过</p>
+
+<pre><code>float haha =[self.dataSource smileForFaceView:self]；
+</code></pre>
+
+<p>这样的方式来获取control中的信息。</p>
+
+		
+		
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-08-27T21:30:00+08:00" pubdate data-updated="true">Aug 27<span>th</span>, 2013</time></div>
+	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/ios/'>ios</a>, <a class='category' href='/blog/categories/mvc/'>mvc</a>, <a class='category' href='/blog/categories/oop/'>oop</a>
+
+
+</div>
+	
+</div>
+</article>
 
 
     <article class="post">
@@ -196,7 +276,7 @@ The propagation law tells us if you want mass-market success or mass-market acce
 	<div class="tags">
 
 
-	<a class='category' href='/blog/categories/no-business-of-tech/'>no_business_of_tech</a>
+	<a class='category' href='/blog/categories/english/'>English</a>, <a class='category' href='/blog/categories/no-business-of-tech/'>no_business_of_tech</a>
 
 
 </div>
@@ -276,7 +356,7 @@ selector属性是选择自动build时候，当文件后缀是.c的时候自动�
 	<div class="tags">
 
 
-	<a class='category' href='/blog/categories/c/'>c</a>, <a class='category' href='/blog/categories/mac/'>mac</a>, <a class='category' href='/blog/categories/sublime/'>sublime</a>, <a class='category' href='/blog/categories/zhong-wen/'>中文</a>
+	<a class='category' href='/blog/categories/mac/'>mac</a>, <a class='category' href='/blog/categories/sublime/'>sublime</a>, <a class='category' href='/blog/categories/zhong-wen/'>中文</a>
 
 
 </div>
@@ -323,7 +403,7 @@ selector属性是选择自动build时候，当文件后缀是.c的时候自动�
 	<div class="tags">
 
 
-	<a class='category' href='/blog/categories/octopress/'>octopress</a>
+	<a class='category' href='/blog/categories/zhong-wen/'>中文</a>, <a class='category' href='/blog/categories/bo-ke-jian-she/'>博客建设</a>
 
 
 </div>
