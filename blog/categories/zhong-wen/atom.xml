@@ -4,7 +4,7 @@
   <title><![CDATA[Category: 中文 | Icemelon]]></title>
   <link href="http://ice-melon.github.io/blog/categories/zhong-wen/atom.xml" rel="self"/>
   <link href="http://ice-melon.github.io/"/>
-  <updated>2013-08-29T01:13:49+08:00</updated>
+  <updated>2013-08-31T01:50:59+08:00</updated>
   <id>http://ice-melon.github.io/</id>
   <author>
     <name><![CDATA[icemelon]]></name>
@@ -12,6 +12,34 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[为octopress添加侧栏分析工具]]></title>
+    <link href="http://ice-melon.github.io/blog/2013/08/31/wei-octopresstian-jia-ce-lan-fen-xi-gong-ju/"/>
+    <updated>2013-08-31T01:18:00+08:00</updated>
+    <id>http://ice-melon.github.io/blog/2013/08/31/wei-octopresstian-jia-ce-lan-fen-xi-gong-ju</id>
+    <content type="html"><![CDATA[<p>Ocotopress 已经集成了twitter，脸书等第三方分析链接，只要在_config.yml里配置能搞定。但墙内没人用这些啊，怎么才能高大上？不慎写了鸡汤文读者要分分钟分享到朋友圈才行，吟诗调侃了薛必群老财主读者能够转到weibo里。如果还有小众读者觉得博主写得好想分享到有道笔记等网站，博主也要贴心服务满足读者需求才行。</p>
+
+<p>在<a href="http://meditic.com/game-of-wild-beast/">meditic</a>的博客里发现了<a href="http://www.jiathis.com/">jiathis</a>这个工具，很全面，里面还有你找不到的分享平台吗？话不多说过程如下。</p>
+
+<p>首先嵌入jiathis的代码，修改<code>source/_include/post/sharing.html</code>，在最后一行的<code>&lt;/div&gt;</code>前加入如下代码</p>
+
+<pre><code>
+&lt;script type="text/javascript" src="http://v3.jiathis.com/code/jiathis_r.js?uid=1374762077227410&amp;move=0" charset="utf-8"&gt;&lt;/script&gt;
+
+</code></pre>
+
+<p>然后在_config.yml中添加jiathis，在文件末尾添加就可</p>
+
+<pre><code>#jianthis
+jianthis:true
+</code></pre>
+
+<p>以后不想开分享只要改成false就可。</p>
+
+<p>试了jiathis几种分析方式，只有这个能不改代码完美契合octopress的布局，而且分享图标也最为清爽，不建议再去jianthis网站定制。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[有迹可循]]></title>
