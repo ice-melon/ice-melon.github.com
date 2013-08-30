@@ -1,0 +1,37 @@
+---
+layout: post
+title: "objective-c中protocol的运用"
+date: 2013-08-27 21:30
+comments: true
+categories: ios oop mvc
+---
+不废话放大招，protocol一句话攻略：
+	等于JAVA中的interface
+[Mac Developer Library](https://developer.apple.com/library/mac/documentation/cocoa/conceptual/ProgrammingWithObjectiveC/WorkingwithProtocols/WorkingwithProtocols.html) 上的精炼解释：
+<pre>
+	A class interface declares the methods and properties associated with that class. 
+	A protocol, by contrast, is used to declare methods and properties that are independent of any specific class.
+</pre>
+像C++和Ruby都实现了多重继承，既一个class能拥有多个superclass；而objective-c和java等语言中的class只能严格拥有一个superclass类。在objective-c中我们用`@protocal`来实现多重继承的能力。
+语法直接看[Mac Developer Library 上的定义](https://developer.apple.com/library/mac/documentation/cocoa/conceptual/ProgrammingWithObjectiveC/WorkingwithProtocols/WorkingwithProtocols.html)，人家苹果写文档都通过一个律师事务所的例子把为什么要在面向对象语言中实现protocol原因给你讲清楚了，是敬业啊！
+
+我这里讲一下运用protocol实现MVC中的delegate方法，因为view和control是不能直接通信的，要使用delegate。mvc以后有空写写，google关于mvc的图片，大部分都是有错误的，很多图居然在view和model间直接加了箭头。view和model怎么能通信呢，起码要通过control才行啊。
+
+比如在 view：FaceView和control：FaceViewControl中，我们要在view中取得一个存在control中的数据。我们不能直接从control中拿，而是要定义一个delegate方法。
+在FaceView的头文件中我们可以这么定义
+<pre>
+@class FaceView;
+
+@protocol FaceViewDataSource
+- (float)smileForFaceView:(FaceView *)sender;
+@end
+
+@interface FaceView : UIView
+@property (nonatomic, weak) IBOutlet id <FaceViewDataSource> dataSource;
+@end
+</pre>
+将FaceView自己作为参数，返回一个float的返回值。而且在@inferface里面定义了一个类型为id的叫dataSource的@property，dataSource还实现了FaceViewDataSource这个protocol。所以dataSource实际上就是control，control中实现了smileForFaceView这个方法。我们就可以再FaveView.m里面通过
+	float haha =[self.dataSource smileForFaceView:self]；
+这样的方式来获取control中的信息。
+
+那@class有什么意义呢？在smileForFaceView方法中的参数(FaceView *)sender是一个指向FaceView对象的指针。但是FaceView是未定义的对象名，由于objective-c是c的拓展，c中用到的所有自定义类型都得在之前定义过，所以得用@class先向compiler声明程序会在后面实现FaceView这个对象。
