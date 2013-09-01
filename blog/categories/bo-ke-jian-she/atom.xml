@@ -4,7 +4,7 @@
   <title><![CDATA[Category: 博客建设 | Icemelon]]></title>
   <link href="http://ice-melon.github.io/blog/categories/bo-ke-jian-she/atom.xml" rel="self"/>
   <link href="http://ice-melon.github.io/"/>
-  <updated>2013-08-31T08:13:57+08:00</updated>
+  <updated>2013-09-01T09:45:57+08:00</updated>
   <id>http://ice-melon.github.io/</id>
   <author>
     <name><![CDATA[icemelon]]></name>
@@ -22,14 +22,13 @@
 
 <p>在<a href="http://meditic.com/game-of-wild-beast/">meditic</a>的博客里发现了<a href="http://www.jiathis.com/">jiathis</a>这个工具，很全面，里面还有你找不到的分享平台吗？话不多说过程如下。</p>
 
-<p>首先嵌入jiathis的代码，修改<code>source/_include/post/sharing.html</code>，在最后一行的<code>&lt;/div&gt;</code>前加入如下代码</p>
-
-<pre><code>
-&lt;script type="text/javascript" src="http://v3.jiathis.com/code/jiathis_r.js?uid=1374762077227410&amp;move=0" charset="utf-8"&gt;&lt;/script&gt;
-
-</code></pre>
-
-<p>然后在_config.yml中添加jiathis，在文件末尾添加就可</p>
+<p>首先嵌入jiathis的代码，修改<code>source/_include/post/sharing.html</code>，在最后一行的<code>&lt;/div&gt;</code>前加入如下代码
+<div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'> <span class="nt">&lt;script </span><span class="na">type=</span><span class="s">&quot;text/javascript&quot;</span> <span class="na">src=</span><span class="s">&quot;http://v3.jiathis.com/code/jiathis_r.js?uid=1374762077227410&amp;move=0&quot;</span>
+</span><span class='line'> <span class="na">charset=</span><span class="s">&quot;utf-8&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+然后在_config.yml中添加jiathis，在文件末尾添加就可</p>
 
 <pre><code>#jianthis
 jianthis:true

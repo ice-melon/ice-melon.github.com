@@ -86,11 +86,8 @@
 
 <p><a href="https://developer.apple.com/library/mac/documentation/cocoa/conceptual/ProgrammingWithObjectiveC/WorkingwithProtocols/WorkingwithProtocols.html">Mac Developer Library</a> 上的精炼解释：</p>
 
-<pre>
-    A class interface declares the methods and properties associated with that class. 
-    A protocol, by contrast, is used to declare methods and properties that are independent of any specific class.
-</pre>
-
+<p>A class interface declares the methods and properties associated with that class.
+A protocol, by contrast, is used to declare methods and properties that are independent of any specific class.</p>
 
 <p>像C++和Ruby都实现了多重继承，既一个class能拥有多个superclass；而objective-c和java等语言中的class只能严格拥有一个superclass类。在objective-c中我们用<code>@protocal</code>来实现多重继承的能力。
 语法直接看<a href="https://developer.apple.com/library/mac/documentation/cocoa/conceptual/ProgrammingWithObjectiveC/WorkingwithProtocols/WorkingwithProtocols.html">Mac Developer Library 上的定义</a>，人家苹果写文档都通过一个律师事务所的例子把为什么要在面向对象语言中实现protocol原因给你讲清楚了，是敬业啊！</p>
@@ -100,23 +97,33 @@
 <p>比如在 view：FaceView和control：FaceViewControl中，我们要在view中取得一个存在control中的数据。我们不能直接从control中拿，而是要定义一个delegate方法。
 在FaceView的头文件中我们可以这么定义</p>
 
-<pre>
-@class FaceView;
-
-@protocol FaceViewDataSource
-- (float)smileForFaceView:(FaceView *)sender;
-@end
-
-@interface FaceView : UIView
-@property (nonatomic, weak) IBOutlet id <FaceViewDataSource> dataSource;
-@end
-</pre>
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="k">@class</span> <span class="nc">FaceView</span>;
+</span><span class='line'>
+</span><span class='line'><span class="k">@protocol</span> <span class="nc">FaceViewDataSource</span>
+</span><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">float</span><span class="p">)</span><span class="nf">smileForFaceView:</span><span class="p">(</span><span class="n">FaceView</span> <span class="o">*</span><span class="p">)</span><span class="nv">sender</span><span class="p">;</span>
+</span><span class='line'><span class="k">@end</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">@interface</span> <span class="nc">FaceView</span> : <span class="nc">UIView</span>
+</span><span class='line'><span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">,</span> <span class="n">weak</span><span class="p">)</span> <span class="kt">IBOutlet</span> <span class="kt">id</span> <span class="o">&lt;</span><span class="n">FaceViewDataSource</span><span class="o">&gt;</span> <span class="n">dataSource</span><span class="p">;</span>
+</span><span class='line'><span class="k">@end</span>
+</span></code></pre></td></tr></table></div></figure>
 
 
 <p>将FaceView自己作为参数，返回一个float的返回值。而且在@inferface里面定义了一个类型为id的叫dataSource的@property，dataSource还实现了FaceViewDataSource这个protocol。所以dataSource实际上就是control，control中实现了smileForFaceView这个方法。我们就可以再FaveView.m里面通过</p>
 
-<pre><code>float haha =[self.dataSource smileForFaceView:self]；
-</code></pre>
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="kt">float</span> <span class="n">haha</span> <span class="o">=</span><span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">dataSource</span> <span class="nl">smileForFaceView:</span><span class="n">self</span><span class="p">]</span><span class="err">；</span>
+</span></code></pre></td></tr></table></div></figure>
+
 
 <p>这样的方式来获取control中的信息。</p>
 

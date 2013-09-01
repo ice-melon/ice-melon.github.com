@@ -4,7 +4,7 @@
   <title><![CDATA[Category: algorithm | Icemelon]]></title>
   <link href="http://ice-melon.github.io/blog/categories/algorithm/atom.xml" rel="self"/>
   <link href="http://ice-melon.github.io/"/>
-  <updated>2013-08-31T08:13:57+08:00</updated>
+  <updated>2013-09-01T09:45:57+08:00</updated>
   <id>http://ice-melon.github.io/</id>
   <author>
     <name><![CDATA[icemelon]]></name>
@@ -32,11 +32,9 @@
 
 <p>Let&rsquo;s prove the correctness by induction:</p>
 
-<pre><code>Suppose that after seeing n-1 elements, each of the first n-1 elements is chosen with equal probability.  
+<p>Suppose that after seeing n-1 elements, each of the first n-1 elements is chosen with equal probability.<br/>
 When you see the nth element, it is chosen with probability 1/n, and each of the other elements is chosen
-with probability [1/(n-1)] * [(n-1) / n] = 1/n. 
-Therefore all elements are chosen with equal probability.
-</code></pre>
+with probability [1/(n-1)] * [(n-1) / n] = 1/n. Therefore all elements are chosen with equal probability.</p>
 
 <p>The algorithm takes O(1) space and O(n) time, which is quite simple and beautiful.
 For more information, see <a href="http://en.wikipedia.org/wiki/Reservoir_sampling">Reservior sample</a> on Wikipedia.</p>
