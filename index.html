@@ -300,7 +300,18 @@ protocol中的方法将FaceView自己作为参数，返回一个float的返回�
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>最后别忘了在storyboard中将FaceViewControl与Faceview链接起来，不然control不会知道FaceView对象在哪里，双方就没办法通信。</p>
+<p>别忘了在storyboard中将FaceViewControl与Faceview链接起来，不然control不会知道FaceView对象在哪里，双方就没办法通信。</p>
+
+<h2>最后总结下实现delegate的步骤：</h2>
+
+<ol>
+<li><p>Create the @protocol</p></li>
+<li><p>Add delegate @property to delegator’s public @interface</p></li>
+<li><p>Use delegate property inside delegator’s implementation</p></li>
+<li><p>Set the delegate property somewhere inside the delegate’s @implementation</p></li>
+<li><p>Implement the protocol’s method(s) in the delegate (include &lt;> on @interface)</p></li>
+</ol>
+
 
 		
 		

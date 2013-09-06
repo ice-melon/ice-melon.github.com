@@ -4,7 +4,7 @@
   <title><![CDATA[Category: mvc | Icemelon]]></title>
   <link href="http://ice-melon.github.io/blog/categories/mvc/atom.xml" rel="self"/>
   <link href="http://ice-melon.github.io/"/>
-  <updated>2013-09-01T11:38:54+08:00</updated>
+  <updated>2013-09-06T11:10:52+08:00</updated>
   <id>http://ice-melon.github.io/</id>
   <author>
     <name><![CDATA[icemelon]]></name>
@@ -100,11 +100,21 @@ protocol中的方法将FaceView自己作为参数，返回一个float的返回�
 </span><span class='line'>  <span class="n">_faceView</span> <span class="o">=</span> <span class="n">faceView</span><span class="p">;</span>
 </span><span class='line'>  <span class="n">self</span><span class="p">.</span><span class="n">faceView</span><span class="p">.</span><span class="n">dataSource</span> <span class="o">=</span> <span class="n">self</span><span class="p">;</span>
 </span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></li>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+别忘了在storyboard中将FaceViewControl与Faceview链接起来，不然control不会知道FaceView对象在哪里，双方就没办法通信。</li>
 </ul>
 
 
-<p>最后别忘了在storyboard中将FaceViewControl与Faceview链接起来，不然control不会知道FaceView对象在哪里，双方就没办法通信。</p>
+<h2>最后总结下实现delegate的步骤：</h2>
+
+<ol>
+<li><p>Create the @protocol</p></li>
+<li><p>Add delegate @property to delegator’s public @interface</p></li>
+<li><p>Use delegate property inside delegator’s implementation</p></li>
+<li><p>Set the delegate property somewhere inside the delegate’s @implementation</p></li>
+<li><p>Implement the protocol’s method(s) in the delegate (include &lt;> on @interface)</p></li>
+</ol>
+
 ]]></content>
   </entry>
   
