@@ -4,7 +4,7 @@
   <title><![CDATA[Category: 中文 | Icemelon]]></title>
   <link href="http://ice-melon.github.io/blog/categories/zhong-wen/atom.xml" rel="self"/>
   <link href="http://ice-melon.github.io/"/>
-  <updated>2013-09-06T11:10:52+08:00</updated>
+  <updated>2013-09-09T18:58:25+08:00</updated>
   <id>http://ice-melon.github.io/</id>
   <author>
     <name><![CDATA[icemelon]]></name>
@@ -12,6 +12,129 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[block in objective-C]]></title>
+    <link href="http://ice-melon.github.io/blog/2013/09/09/block-in-objective-c/"/>
+    <updated>2013-09-09T12:26:00+08:00</updated>
+    <id>http://ice-melon.github.io/blog/2013/09/09/block-in-objective-c</id>
+    <content type="html"><![CDATA[<h2>定义</h2>
+
+<p>block实际上就是ruby，python等语言中的<a href="http://en.wikipedia.org/wiki/Closure_(computer_science)">闭包（closure）</a>,维基百科对closure的定义如下：</p>
+
+<blockquote><p>a closure is a function or reference to a function together with a referencing environment—a table storing a reference to each of the non-local variables  of that function.</p></blockquote>
+
+<p>就是说闭包其实是函数或者函数指针和一个table的组合，这个table里面储存了函数中使用的自由变量。自由变量是在外部创造出来的，但和函数是好基友，一辈子不分离。block是一个标准的objective-c对象，可以作为参数传递，可以作为方法返回值，可以赋值给变量。</p>
+
+<p>这里有篇<a href="http://www.galloway.me.uk/2013/05/a-look-inside-blocks-episode-3-block-copy/">分析objective-c block实现的文章</a>，可以看到block数据结构中复制了自由变量。</p>
+
+<h2>语法</h2>
+
+<p><img src="https://developer.apple.com/library/IOS/documentation/Cocoa/Conceptual/Blocks/Art/blocks.jpg" alt="IOS Dev Library对block语法的解释" /></p>
+
+<h4>声明block的格式如下:</h4>
+
+<p><code>typedef return_type (^block_type)(param_type, param_type, ...)</code></p>
+
+<p>^表示block的开始，注意我们不需要参数的名称。</p>
+
+<h4>定义block的格式如下：</h4>
+
+<p><code>^(param_type param_name, param_type param_name, ...) { ... return return_type; }</code>
+这里我们看到参数类型和参数名都要包含进去。</p>
+
+<h4>用法</h4>
+
+<p>声明格式里面block_type是变量类型，例如我们一个block类型</p>
+
+<p><code>typedef double (^unary_operation_t)(double op);</code></p>
+
+<p>然后声明一个类型是unary_operation_t的变量</p>
+
+<p><code>unary_operation_t square;</code></p>
+
+<p>而后给square赋值</p>
+
+<p><code>square = ^(double operand) { return operand * operand; }</code></p>
+
+<p>最后要这样用square变量</p>
+
+<p><code>double squareOfFive = square(5.0);</code></p>
+
+<p>以上步骤可以简化为:</p>
+
+<p><code>double (^square)(double op) = ^(double op) { return op * op; };</code>
+<code>double squareOfFive = square(5.0);</code></p>
+
+<p>实际上简略了声明一个type的步骤</p>
+
+<h4>其他简化用法</h4>
+
+<p>1.如果一个block是method的参数，会立即被使用，那么将会省略typedef和block_type</p>
+
+<p><code>- (void)enumerateKeysAndObjectsUsingBlock:(void (^)(id key, id obj, BOOL *stop))block;</code></p>
+
+<p>完整的写法是
+<code>typedef void (^enumeratingBlock)(id key, id obj, BOOL *stop);</code></p>
+
+<p>2.如果能从return中猜测出返回值的类型，return_type也可以省略</p>
+
+<p>3.如果没有参数，那省略小括号也是合法的</p>
+
+<p><code>^() { ... }</code>可以写成<code>^{...}</code></p>
+
+<h2>Memory Cycle</h2>
+
+<p>block给每个在block中使用的自由变量维护了个strong类型的指针。如果block里面引用了包含block的类那就非常麻烦。举个栗子：
+<div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">,</span> <span class="n">strong</span><span class="p">)</span> <span class="n">NSArray</span> <span class="o">*</span><span class="n">myBlocks</span><span class="p">;</span>
+</span><span class='line'><span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">myBlocks</span> <span class="nl">addObject:</span><span class="o">^</span><span class="p">()</span> <span class="p">{</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="p">[</span><span class="n">self</span> <span class="n">doSomething</span><span class="p">];</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="p">}];</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+self对NSArray中的每个block都维护了个strong类型的指针，而block内部又维护了self对象的指针。这就导致self和block都无法从heap中释放，因为referene count永远都不会是0.</p>
+
+<p>但我们可以通过设置weak指针的方法避免这问题
+<div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="n">__weak</span> <span class="n">MyClass</span> <span class="o">*</span><span class="n">weakSelf</span> <span class="o">=</span> <span class="n">self</span><span class="p">;</span>
+</span><span class='line'><span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">myBlocks</span> <span class="nl">addObject:</span><span class="o">^</span><span class="p">()</span> <span class="p">{</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="p">[</span><span class="n">weakSelf</span> <span class="n">doSomething</span><span class="p">];</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="p">}];</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<h2>block在ios中的作用</h2>
+
+<p>1.Enumeration</p>
+
+<p>2.View Animations (more on that later in the course)</p>
+
+<p>3.Sorting (sort this thing using a block as the comparison method) Notification (when something happens, execute this block)</p>
+
+<p>4.Error handlers (if an error happens while doing this, execute this block)</p>
+
+<p>5.Completion handlers (when you are done doing this, execute this block)</p>
+
+<h3>And a super-important use: Multithreading With Grand Central Dispatch (GCD) API</h3>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[为octopress添加侧栏分享工具]]></title>
